@@ -1,9 +1,24 @@
 language: php
-php:
-  - 5.3
-  - 5.4
-  - 5.5
 
-branches:
-  only:
-    - master
+sudo: false
+
+php:
+  - 7.1
+  - 7.2
+
+matrix:
+  fast_finish: true
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_install:
+  - composer self-update
+  - composer validate
+
+install:
+  - composer install --prefer-dist --no-interaction
+
+script:
+  - vendor/bin/phpunit
